@@ -13,13 +13,14 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA2AL-ypOVtilCjyXPCYjIUff0Pe5KxVZw",
-  authDomain: "voyage-landing-page-auth.firebaseapp.com",
-  projectId: "voyage-landing-page-auth",
-  storageBucket: "voyage-landing-page-auth.appspot.com",
-  messagingSenderId: "400572954425",
-  appId: "1:400572954425:web:69aab779ee980a2c615ae8",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
+
 
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
