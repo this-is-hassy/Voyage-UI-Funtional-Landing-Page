@@ -1,17 +1,7 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import GoToTop from "../components/GoToTop";
+import { FirebaseProvider } from "../context/Firebase";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,11 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" className="!scroll-smooth scrollbar">
+      <body className="relative bg-stone-50 dark:bg-[#18181B] ">
+        <FirebaseProvider>
+          <GoToTop />
+          {children}
+        </FirebaseProvider>
       </body>
     </html>
   );
