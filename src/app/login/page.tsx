@@ -6,7 +6,7 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-const page = () => {
+const Page = () => {
   const firebase: any = useFirebase();
   const router = useRouter();
 
@@ -84,4 +84,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -33,7 +33,7 @@ const Luxury = () => {
                     Private Residences
                   </h5>
                   <p className="text-[#B7B7C7] font-normal text-sm">
-                    Stay in the world's most exclusive homes.
+                    Stay in the world`&apos;`s most exclusive homes.
                   </p>
                 </div>
                 <div className="dark:bg-[#323238] bg-[#696970] px-6 py-4 rounded-[32px]">

@@ -15,8 +15,7 @@ type NavbarProps = {
 const Navbar = ({ theme, setTheme }: NavbarProps) => {
   const firebase: any = useFirebase();
   const isLoggedIn = firebase.isLoggedIn;
-  
-// const shosss = firebase.loggedI
+
   const handleLogout = async () => {
     await firebase.logout();
   };
@@ -44,7 +43,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
         </ul>
 
         <div className="flex gap-3 items-center">
-        {isLoggedIn ? (
+          {isLoggedIn ? (
             <Button
               title="Log Out"
               onClick={handleLogout}

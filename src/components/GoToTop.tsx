@@ -10,7 +10,7 @@ const GoToTop = () => {
   };
 
   const listenToScroll = () => {
-    let heightToHidden = 250;
+    const heightToHidden = 250;
     const winSrcoll = document.body.scrollTop || document.documentElement.scrollTop;
 
     if (winSrcoll > heightToHidden) {
