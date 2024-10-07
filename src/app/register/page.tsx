@@ -1,29 +1,29 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { useFirebase } from "../../context/Firebase";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Link from "next/link";
 
-const Page = () => {
-  const firebase: any = useFirebase();
+const Page: React.FC = () => {
+  const firebase = useFirebase();
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (firebase.isLoggedIn) {
+    if (firebase?.isLoggedIn) {
       router.push("/");
     }
   }, [firebase, router]);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -34,11 +34,8 @@ const Page = () => {
 
     try {
       console.log("Signing up a user...");
-      const result = await firebase.signupUserWithEmailAndPassword(
-        email,
-        password
-      );
-      console.log("Signup successful", result);
+      await firebase?.signupUserWithEmailAndPassword(email, password);
+      console.log("Signup successful");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
@@ -73,7 +70,7 @@ const Page = () => {
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                type={showPassword ? "password" : "text"}
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 className="input input-bordered bg-neutral-300 text-[#131314]"
                 required
@@ -92,7 +89,7 @@ const Page = () => {
               <input
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 value={confirmPassword}
-                type={showConfirmPassword ? "password" : "text"}
+                type={showConfirmPassword ? "text" : "password"}
                 placeholder="Re-enter password"
                 className="input input-bordered bg-neutral-300 text-[#131314]"
                 required
@@ -104,13 +101,14 @@ const Page = () => {
                 {showConfirmPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
               </div>
             </div>
+            {error && <p className="text-red-500 text-center">{error}</p>}
             <Button
               title="Sign Up"
               type="submit"
               className="bg-[#FFD015] text-[#111827] font-semibold text-sm rounded-[8px] mt-6 py-4 px-[52px] cursor-pointer"
             />
-            <Link href={"/login"} className="text-center">
-              Already have an account?
+            <Link href={"/login"} className="text-center mt-4 block">
+              Already have an account?{" "}
               <span className="text-[#FFD015] cursor-pointer">Login</span>
             </Link>
           </form>

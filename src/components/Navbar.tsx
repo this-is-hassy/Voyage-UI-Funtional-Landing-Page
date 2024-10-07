@@ -12,12 +12,17 @@ type NavbarProps = {
   setTheme: (darkMode: boolean) => void;
 };
 
-const Navbar = ({ theme, setTheme }: NavbarProps) => {
-  const firebase: any = useFirebase();
-  const isLoggedIn = firebase.isLoggedIn;
+const Navbar: React.FC<NavbarProps> = ({ theme, setTheme }) => {
+  const firebase = useFirebase();
+
+  const isLoggedIn = firebase?.isLoggedIn;
 
   const handleLogout = async () => {
-    await firebase.logout();
+    try {
+      await firebase?.logout();
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
   };
 
   return (
@@ -33,7 +38,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
         </div>
       </Link>
 
-      <div className="gap-5 flexCenter ">
+      <div className="gap-5 flexCenter">
         <ul className="hidden lg:flex font-semibold text-xs gap-11">
           {NAV_LINKS.map((link) => (
             <Link href={link.href} key={link.key}>
@@ -60,13 +65,14 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
               </Link>
               <Link href={"/login"}>
                 <Button
-                  title="Login In"
+                  title="Login"
                   type="button"
                   className="bg-[#FFD015] text-[#111827] font-semibold text-xs rounded-[8px] py-3 px-6"
                 />
               </Link>
             </>
           )}
+
           <div
             className="relative w-16 h-8 flex items-center dark:bg-[#323238] bg-neutral-600 cursor-pointer rounded-full p-[4px]"
             onClick={() => setTheme(!theme)}
