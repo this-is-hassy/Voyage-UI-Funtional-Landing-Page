@@ -39,8 +39,12 @@ const Page: React.FC = () => {
       setEmail("");
       setPassword("");
       setConfirmPassword("");
-    } catch (error) {
-      setError("Signup failed. Please try again.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Signup failed. Please try again.");
+      }
     }
   };
 
