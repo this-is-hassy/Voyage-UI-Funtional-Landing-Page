@@ -1,6 +1,5 @@
 "use client";
-import { createContext, useContext, ReactNode } from "react";
-import React, { useState, useEffect } from "react";
+import { createContext, useContext, ReactNode, useState, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -30,9 +29,9 @@ const googleProvider = new GoogleAuthProvider();
 
 // FirebaseContext Type
 type FirebaseContextType = {
-  signupUserWithEmailAndPassword: (email: string, password: string) => Promise<any>;
-  singinUserWithEmailAndPass: (email: string, password: string) => Promise<any>;
-  signinWithGoogle: () => Promise<any>;
+  signupUserWithEmailAndPassword: (email: string, password: string) => Promise<void>;
+  singinUserWithEmailAndPass: (email: string, password: string) => Promise<void>;
+  signinWithGoogle: () => Promise<void>;
   isLoggedIn: boolean;
   logout: () => Promise<void>;
 };
@@ -50,13 +49,17 @@ interface FirebaseProviderProps {
 
 // FirebaseProvider Component
 export const FirebaseProvider = ({ children }: FirebaseProviderProps) => {
-  const signupUserWithEmailAndPassword = (email: string, password: string) =>
-    createUserWithEmailAndPassword(firebaseAuth, email, password);
+  const signupUserWithEmailAndPassword = async (email: string, password: string): Promise<void> => {
+    await createUserWithEmailAndPassword(firebaseAuth, email, password);
+  };
 
-  const singinUserWithEmailAndPass = (email: string, password: string) =>
-    signInWithEmailAndPassword(firebaseAuth, email, password);
+  const singinUserWithEmailAndPass = async (email: string, password: string): Promise<void> => {
+    await signInWithEmailAndPassword(firebaseAuth, email, password);
+  };
 
-  const signinWithGoogle = () => signInWithPopup(firebaseAuth, googleProvider);
+  const signinWithGoogle = async (): Promise<void> => {
+    await signInWithPopup(firebaseAuth, googleProvider);
+  };
 
   const [user, setUser] = useState<User | null>(null);
 
@@ -69,7 +72,9 @@ export const FirebaseProvider = ({ children }: FirebaseProviderProps) => {
 
   const isLoggedIn = !!user;
 
-  const logout = () => signOut(firebaseAuth);
+  const logout = async (): Promise<void> => {
+    await signOut(firebaseAuth);
+  };
 
   return (
     <FirebaseContext.Provider
