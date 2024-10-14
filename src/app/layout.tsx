@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="!scroll-smooth scrollbar">
-      <body className="overflow-hidden relative bg-stone-50 dark:bg-[#18181B] ">
+      <body className="overflow-x-hidden relative bg-stone-50 dark:bg-[#18181B] ">
         <FirebaseProvider>
           <GoToTop />
           {children}
